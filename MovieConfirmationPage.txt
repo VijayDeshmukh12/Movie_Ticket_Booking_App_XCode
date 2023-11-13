@@ -1,0 +1,27 @@
+import UIKit
+
+class BookingViewController: UIViewController {
+    
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var timePicker: UIDatePicker!
+    
+    var selectedMovie: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    @IBAction func bookNow(_ sender: Any) {
+        // Perform your booking logic here
+        let successAlert = UIAlertController(title: "Booking Successful", message: "Your booking for \(selectedMovie ?? "selected movie") at \(formatDate()) is confirmed Thank You...!", preferredStyle: .alert)
+        successAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        successAlert.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: nil))
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    
+    func formatDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        return dateFormatter.string(from: timePicker.date)
+    }
+}

@@ -1,0 +1,46 @@
+import UIKit
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var web: UIWebView!
+    
+    @IBOutlet weak var movieSegmentedControl: UISegmentedControl!
+    
+    var selectedVideoURL: String?
+    
+    @IBAction func videoPlay(_ sender: Any) {
+        var movie = movieSegmentedControl.selectedSegmentIndex
+        switch movie {
+                    case 0:
+                        web.isHidden = false
+                        selectedVideoURL = "https://www.youtube.com/watch?v=3UKsbXQUwqw"
+            
+                    case 1:
+                        web.isHidden = false
+                        selectedVideoURL = "https://www.youtube.com/watch?v=ZAP6q_Zv-4g"
+                    case 2:
+                        web.isHidden = false
+                        selectedVideoURL = "https://www.youtube.com/watch?v=Dydmpfo68DA"
+                    default:
+                        ""
+        }
+        let url = URL(string: selectedVideoURL!)
+            let urlRequest = URLRequest(url: url!)
+            web.loadRequest(urlRequest)
+    }
+    
+    @IBAction func chooseMovie(_ sender: Any) {
+        if let selectedMovie = movieSegmentedControl.titleForSegment(at: movieSegmentedControl.selectedSegmentIndex) {
+            performSegue(withIdentifier: "showBooking", sender: selectedMovie)
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showBooking" {
+            if let destinationVC = segue.destination as? BookingViewController, let selectedMovie = sender as? String {
+                destinationVC.selectedMovie = selectedMovie
+            }
+        }
+    }
+}

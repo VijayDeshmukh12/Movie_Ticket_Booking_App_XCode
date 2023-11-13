@@ -1,0 +1,24 @@
+import UIKit
+
+class _stViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    @IBOutlet weak var uname: UITextField!
+    
+    @IBOutlet weak var pass: UITextField!
+    @IBAction func login(_ sender: Any) {
+        if(uname.text == "Vijay" && pass.text == "123"){
+            performSegue(withIdentifier: "s1", sender: nil)
+        }
+        else {
+            let alert1 = UIAlertController(title: "WARNING", message: "ENTERED WRONG USERNAME OR PASSWORD", preferredStyle: .actionSheet)
+            alert1.addAction(UIAlertAction(title: "OK", style: .default))
+            alert1.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: nil))
+            
+            self.present(alert1, animated: true, completion: nil)
+        }
+    }
+}
